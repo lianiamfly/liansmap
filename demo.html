@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=6ng83DUkbCDsFRgplTucbMk23IwAoq05"></script>
+    <script src="js/maproot.js"></script>
+
+</head>
+<body>
+    <div id="allmap" style="width: 500px;height: 600px;float: left;border: 2px solid #d2d624"></div>
+    <div id="map" style="width: 500px;height: 600px;float: left;border: 2px solid #5d3dd6"></div>
+</body>
+</html>
+<script type="text/javascript">
+    /*var bdmap1 = new BDMap();
+    var bdmap2 = new BDMap();
+    var locmap =  bdmap1.CreateMap("simple","allmap",112.45348,38.348458,10);
+    var locmap2 =  bdmap2.CreateMap("simple","map",112.45348,38.348458,10);
+    /!*bdmap1.setmap(locmap);
+    bdmap2.setmap(locmap2);
+    console.log(bdmap1);
+    console.log(bdmap2);
+     *!/
+    bdmap1.CenterAndZoom(10.324728,34.324834,9);
+    bdmap2.CenterAndZoom(90.324728,34.324834,14);
+
+    bdmap1.GetClickPosition();
+    function getclickposition(msg){
+        alert(msg);
+    }
+*/
+
+    var T = function(m){
+        m = m + ":测试地图";
+        this.map = m;
+    };
+
+    RootTool.Extend(RootMap,T);
+
+    T.prototype.test = function(){
+      console.log(this.map);
+    };
+
+    var Init = function () {
+        /*m = m + ":测试地图";
+        this.map = m;*/
+    };
+    RootTool.Extend(T,Init);
+
+    var t1 = new T("test1");
+    var t2 = new Init("test2");
+
+    t1.test();
+    t2.test();
+
+
+</script>
