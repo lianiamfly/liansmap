@@ -14,6 +14,26 @@
 </body>
 </html>
 <script type="text/javascript">
+    var bdmap1 = new BDMap();
+    var locmap = bdmap1.CreateMap("simple","allmap",112.343294,37.43589,12);
+    bdmap1.GetClickPosition(han);
+    function han(pt){
+        console.log(pt.point.lng+"  "+pt.point.lat);
+    }
+
+    bdmap1.AddZoomChange(zoom);
+    function zoom(msg){
+        console.log("缩放:"+msg);
+    }
+    var ma = bdmap1.AddSimpleMarker("1",112.343294,37.43589);
+    ma = bdmap1.SetMarkerLabel(ma,"test",-10,5);
+    ma = bdmap1.SetMarkerLabel(ma,"test1",20,5);
+
+    bdmap1.GetAddressFromXY(112.23478328,38.3457843,test);
+    function test(rs){
+        console.log(rs);
+    }
+
     /*var bdmap1 = new BDMap();
     var bdmap2 = new BDMap();
     var locmap =  bdmap1.CreateMap("simple","allmap",112.45348,38.348458,10);
@@ -32,7 +52,7 @@
     }
 */
 
-    var T = function(m){
+    /*var T = function(m){
         m = m + ":测试地图";
         this.map = m;
     };
@@ -44,8 +64,8 @@
     };
 
     var Init = function () {
-        /*m = m + ":测试地图";
-        this.map = m;*/
+        /!*m = m + ":测试地图";
+        this.map = m;*!/
     };
     RootTool.Extend(T,Init);
 
@@ -53,7 +73,7 @@
     var t2 = new Init("test2");
 
     t1.test();
-    t2.test();
+    t2.test();*/
 
 
 </script>
