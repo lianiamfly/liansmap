@@ -518,14 +518,12 @@ RootMap.prototype.rootname = "地图类";
                  map.removeTileLayer(this.quanJTileLayer);
                  map.removeControl(this.quanJTileControl);
                  this.quanJTileLayer = undefined;
-
              }
 
              if (value === "1") {
                  map.setMapType(BMAP_NORMAL_MAP);
-
              } else if (value === "2") {
-                 map.setMapType(BMAP_SATELLITE_MAP);
+                 map.setMapType(BMAP_HYBRID_MAP);
              } else if (value === "3") {
                  map.setMapType(BMAP_NORMAL_MAP);
                  this.showQuanJTControl();
