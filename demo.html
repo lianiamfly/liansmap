@@ -40,13 +40,59 @@
     function zoom(msg){
         console.log("缩放:"+msg);
     }
+
+    var t = "112.324328,38.348942;111.3248394,36.3294832;112.2349384,37.34284783";
+    function initPoinst(){
+        var temp = t.split(";");
+
+    }
+
     var ma = bdmap1.AddSimpleMarker("1",112.343294,37.43589);
     ma = bdmap1.SetMarkerLabel(ma,"test",-10,5);
     ma = bdmap1.SetMarkerLabel(ma,"test1",20,5);
+    bdmap1.AddMarkerMouseover(ma,mouseoverhandler);
+    bdmap1.AddMarkerMouseout(ma,mouseouthandler);
+
+    var ply;
+    var geoc = new BMap.Geocoder();
+    function mouseoverhandler(e){
+        var cur = e.target;
+        var loc = cur.getPosition();
+        geoc.getLocation(loc, function(rs){
+            var addComp = rs.addressComponents;
+            var locname = addComp.province + addComp.city + addComp.district;
+            var bdary = new BMap.Boundary();
+            bdary.get(locname, function(rs){       //获取行政区域
+                if(ply){
+                    locmap.removeOverlay(ply);        //清除地图覆盖物
+                }
+                var count = rs.boundaries.length; //行政区域的点有多少个
+                if (count === 0) {
+                    return ;
+                }
+                var pointArray = [];
+                for (var i = 0; i < count; i++) {
+                    ply = new BMap.Polygon(rs.boundaries[i], {strokeWeight: 2, strokeColor: "#ff0000"}); //建立多边形覆盖物
+                    locmap.addOverlay(ply);  //添加覆盖物
+                    pointArray = pointArray.concat(ply.getPath());
+                }
+                locmap.setViewport(pointArray);    //调整视野
+
+            });
+            //alert(addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber);
+        });
+    }
+
+    function mouseouthandler(e){
+        if(ply){
+            locmap.removeOverlay(ply);        //清除地图覆盖物
+        }
+    }
 
     bdmap1.GetAddressFromXY(112.23478328,38.3457843,test);
     function test(rs){
         console.log(rs);
+
     }
 
 
